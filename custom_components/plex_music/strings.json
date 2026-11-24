@@ -1,0 +1,118 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to your Plex server",
+        "description": "Enter the local IPv4 address of your Plex server. Plex Music uses the default port 32400.",
+        "data": {
+          "plex_ip": "Plex server IP address (e.g. 192.168.1.20)"
+        }
+      },
+      "authorize": {
+        "title": "Sign in to Plex",
+        "description": "Open [Plex sign-in]({auth_url}), sign in to your Plex account, and approve access. Then return here and select Submit."
+      }
+    },
+    "error": {
+      "invalid_ip": "Enter a valid private IPv4 address on your home network.",
+      "auth_unavailable": "Plex sign-in could not be started or checked. Please try again.",
+      "not_authorized": "Plex has not confirmed authorisation yet. Finish signing in and try again.",
+      "cannot_connect": "Plex authorised your account, but the server could not be reached at this IP address on port 32400."
+    },
+    "abort": {
+      "already_configured": "This Plex server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Choose music libraries",
+        "description": "Choose your Plex music libraries or select an Alexa setup, device-management or voice-recognition task.",
+        "data": {
+          "music_libraries": "Music libraries",
+          "next_step": "What would you like to do?"
+        }
+      },
+      "alexa": {
+        "title": "Set up Alexa skill",
+        "description": "Choose whether to configure a new Alexa skill or use an existing skill.",
+        "data": {
+          "setup_mode": "Skill setup"
+        }
+      },
+      "alexa_existing": {
+        "title": "Connect an existing Alexa skill",
+        "description": "Enter the skill ID from the Alexa Developer Console and your public HTTPS Home Assistant address. Keep the existing skill's AudioPlayer interface enabled.",
+        "data": {
+          "endpoint_url": "Your own HTTPS URL (only if selected)",
+          "skill_id": "Existing Alexa skill ID",
+          "url_source": "Which HTTPS URL should Alexa use?",
+          "voice_confirmation": "Should Alexa speak before playing music?"
+        }
+      },
+      "alexa_new": {
+        "title": "Prepare a new Alexa skill",
+        "description": "Prepare a custom Alexa skill. Use your public HTTPS Home Assistant address, then follow the next screen's instructions to copy the JSON model and enable the AudioPlayer interface.",
+        "data": {
+          "endpoint_url": "Your own HTTPS URL (only if selected)",
+          "skill_id": "Alexa skill ID (optional until created)",
+          "url_source": "Which HTTPS URL should Alexa use?",
+          "voice_confirmation": "Should Alexa speak before playing music?"
+        }
+      },
+      "alexa_instructions": {
+        "title": "Copy your Alexa skill configuration",
+        "description": "**1.** Open the [Alexa Developer Console]({console_url}) and create or open your **Custom** skill. Use **English (UK), en-GB** for this model.\n\n**2.** Copy the complete **Alexa interaction model JSON** from the field below. In **Build → Interaction Model → JSON Editor**, replace the existing JSON, save and **Build Model**. The model includes What's Playing, skip/next song, playback, shuffle and music discovery commands.\n\n**3.** Under **Build → Interfaces**, enable **Audio Player**. Under **Endpoint**, choose **HTTPS** and use `{endpoint_url}` as the default region endpoint, with a valid HTTPS certificate configuration.\n\n**4.** Copy the skill ID from the Alexa console and enter it under Plex Music → Configure → Alexa skill setup. Identify and register each Echo under **Register and name Echo devices**.\n\n**5.** Test with *Alexa, ask Plex Music what's playing* while music is playing.\n\nThe wizard prepares configuration; it does not create or deploy an Amazon skill automatically.",
+        "data": {
+          "developer_console_url": "Alexa Developer Console — open this link",
+          "suggested_locale": "Skill language (use English UK for this model)",
+          "proposed_endpoint_url": "Alexa HTTPS endpoint",
+          "interaction_model_json": "Alexa interaction model JSON — copy all (read-only reference; changes here are not saved)"
+        }
+      },
+      "alexa_devices": {
+        "title": "Register identified Alexa devices",
+        "description": "Pending devices: {pending_count}. Registered devices: {registered_count}. Say 'Alexa, ask Plex Music to identify this device' on each Echo. Select new devices, enter friendly names and save. Registered devices automatically receive a Status sensor under Plex Music.",
+        "data": {
+          "devices": "Select devices to register"
+        }
+      },
+      "alexa_delete_devices": {
+        "title": "Delete registered Alexa devices",
+        "description": "Registered devices: {registered_count}. Select the Echo devices to remove from Plex Music and Home Assistant. You can identify them again later using your Alexa skill.",
+        "data": {
+          "devices_to_delete": "Devices to delete"
+        }
+      },
+      "voice_aliases": {
+        "title": "Voice recognition overrides",
+        "description": "Correct words Alexa mishears before searching Plex. Enter one mapping per line, for example: gem = Jem. Matching ignores capitalisation and extra spaces. Edit or remove lines to update or delete mappings; leave the field empty to clear all mappings.",
+        "data": {
+          "overrides": "Alexa hears = Plex Music searches for"
+        }
+      },
+      "delete_voice_aliases": {
+        "title": "Delete voice recognition overrides",
+        "description": "Select the voice recognition mappings to delete. Other mappings will remain unchanged.",
+        "data": {
+          "aliases_to_delete": "Mappings to delete"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not retrieve Plex libraries. Check that the server is online.",
+      "no_music_libraries": "No music libraries were found on this Plex server.",
+      "select_library": "Select at least one music library.",
+      "invalid_selection": "A selected library is no longer available.",
+      "invalid_endpoint": "Enter a public HTTPS URL without a custom port or path.",
+      "invalid_skill_id": "Enter a valid Amazon Alexa skill ID.",
+      "required_skill_id": "Enter your existing Alexa skill ID.",
+      "select_device": "Select at least one pending Alexa device.",
+      "invalid_device_name": "Each selected device needs a unique friendly name (1–80 characters).",
+      "invalid_voice_aliases": "Enter one mapping per line using 'heard = intended'. Names must be 1–200 characters and spoken phrases must be unique."
+    },
+    "abort": {
+      "no_voice_aliases": "There are no voice recognition overrides to delete."
+    }
+  }
+}

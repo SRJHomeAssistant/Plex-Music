@@ -1,0 +1,312 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "plex music",
+      "intents": [
+        {
+          "name": "PlayTrackIntent",
+          "slots": [
+            {
+              "name": "track",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "play {track}",
+            "play music"
+          ]
+        },
+        {
+          "name": "PlaySongIntent",
+          "slots": [
+            {
+              "name": "song",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "play song {song}",
+            "play the song {song}",
+            "play track {song}"
+          ]
+        },
+        {
+          "name": "PlayArtistIntent",
+          "slots": [
+            {
+              "name": "artist",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "play artist {artist}",
+            "play the artist {artist}",
+            "play music by {artist}"
+          ]
+        },
+        {
+          "name": "PlayAlbumIntent",
+          "slots": [
+            {
+              "name": "album",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "play album {album}",
+            "play the album {album}"
+          ]
+        },
+        {
+          "name": "ShuffleIntent",
+          "slots": [
+            {
+              "name": "track",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "shuffle {track}",
+            "shuffle music by {track}"
+          ]
+        },
+        {
+          "name": "ShuffleAlbumIntent",
+          "slots": [
+            {
+              "name": "album",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "shuffle album {album}",
+            "shuffle the album {album}"
+          ]
+        },
+        {
+          "name": "FindAlbumsIntent",
+          "slots": [
+            {
+              "name": "artist",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "find albums by {artist}",
+            "find all albums by {artist}",
+            "list albums by {artist}",
+            "what albums do I have by {artist}"
+          ]
+        },
+        {
+          "name": "FindSongsIntent",
+          "slots": [
+            {
+              "name": "song",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "find songs called {song}",
+            "find all songs called {song}",
+            "find the song {song}",
+            "list songs called {song}"
+          ]
+        },
+        {
+          "name": "PlayDiscoveryIntent",
+          "slots": [
+            {
+              "name": "number",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "play number {number}",
+            "play option {number}",
+            "play choice {number}"
+          ]
+        },
+        {
+          "name": "ShuffleDiscoveryIntent",
+          "slots": [
+            {
+              "name": "number",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "shuffle number {number}",
+            "shuffle option {number}",
+            "shuffle choice {number}"
+          ]
+        },
+        {
+          "name": "MoreDiscoveryIntent",
+          "samples": [
+            "more results",
+            "next results",
+            "read more results"
+          ]
+        },
+        {
+          "name": "RepeatDiscoveryIntent",
+          "samples": [
+            "repeat results",
+            "repeat the results",
+            "say those again"
+          ]
+        },
+        {
+          "name": "StopPlaybackIntent",
+          "samples": [
+            "stop music",
+            "stop playback",
+            "stop playing"
+          ]
+        },
+        {
+          "name": "PreviousTrackIntent",
+          "samples": [
+            "previous track",
+            "previous song",
+            "go back a track"
+          ]
+        },
+        {
+          "name": "NextTrackIntent",
+          "samples": [
+            "next track",
+            "next song",
+            "skip this song",
+            "next",
+            "play next song",
+            "play the next song",
+            "play the next track",
+            "skip",
+            "skip song",
+            "skip track",
+            "skip this track",
+            "skip to the next song",
+            "skip to the next track",
+            "skip to next song",
+            "skip to next track",
+            "go to next song",
+            "go to the next song",
+            "move to the next track",
+            "move on to the next song",
+            "can you skip this song",
+            "please skip this song",
+            "change the song",
+            "change track",
+            "another song",
+            "play another song"
+          ]
+        },
+        {
+          "name": "ResumePlaybackIntent",
+          "samples": [
+            "resume music",
+            "resume playback",
+            "continue playing"
+          ]
+        },
+        {
+          "name": "PausePlaybackIntent",
+          "samples": [
+            "pause music",
+            "pause playback",
+            "pause the music"
+          ]
+        },
+        {
+          "name": "IdentifyDeviceIntent",
+          "samples": [
+            "identify this device",
+            "identify my device",
+            "register this device"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "WhyDidntPlayIntent",
+          "samples": [
+            "why did that song not play",
+            "why did the last song fail",
+            "what was the last playback error",
+            "why couldn't you play that song",
+            "why did the song fail",
+            "what song failed to play"
+          ]
+        },
+        {
+          "name": "WhatsPlayingIntent",
+          "samples": [
+            "what's playing",
+            "what is playing",
+            "what song is that",
+            "what is that song",
+            "what song is playing",
+            "what am I listening to",
+            "what's this song",
+            "what is this song"
+          ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "PlayTrackIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "track",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.PlayTrackIntent.track"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "prompts": [
+      {
+        "id": "Elicit.PlayTrackIntent.track",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What would you like to play?"
+          }
+        ]
+      }
+    ]
+  }
+}

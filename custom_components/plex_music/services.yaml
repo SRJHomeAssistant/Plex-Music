@@ -1,0 +1,32 @@
+search_music:
+  name: Search Plex music
+  description: Search artists, albums or tracks in selected Plex music libraries. Returns matching metadata; does not start playback.
+  fields:
+    query:
+      name: Search text
+      description: Artist, album or track name to search for.
+      required: true
+      example: Queen
+      selector:
+        text:
+    kind:
+      name: Result type
+      description: Choose whether to search for artists, albums or tracks.
+      required: false
+      default: track
+      selector:
+        select:
+          options:
+            - artist
+            - album
+            - track
+    limit:
+      name: Maximum results
+      description: Maximum number of matches per Plex server.
+      required: false
+      default: 20
+      selector:
+        number:
+          min: 1
+          max: 50
+          mode: box
