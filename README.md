@@ -31,8 +31,6 @@ Plex Music is a free, self-hosted Home Assistant custom integration that plays m
 4. Enter your Plex server's private IPv4 address (the default Plex port is **32400**), follow the Plex sign-in link and authorise access.
 5. Open **Plex Music → Configure** and select the Plex music libraries to use.
 
-This repository is a new GitHub repository and Marketplace installation source. The earlier repository and its historical releases are preserved in [Plex-Music-Archive](https://github.com/SRJHomeAssistant/Plex-Music-Archive).
-
 ## Set up the Alexa custom skill
 
 1. In **Plex Music → Configure**, open the Alexa skill setup wizard.
