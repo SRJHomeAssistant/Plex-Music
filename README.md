@@ -59,10 +59,10 @@ Examples may vary depending on the Alexa interaction model. For native playback 
 | Check the current song | “Alexa, ask Plex Music what's playing.” |
 | Explain a playback failure | “Alexa, ask Plex Music why did that song not play?” |
 | Pause | “Alexa, ask Plex Music to pause.” |
-| Resume | “Alexa, ask Plex Music to  resume music.” |
-| Next track | “Alexa, ask Plex Music next track.” |
+| Resume | “Alexa, ask Plex Music to resume music.” |
+| Next track | “Alexa, ask Plex Music to play the next track.” |
 | Skip a track | “Alexa, ask Plex Music to skip this song.” |
-| Previous track | “Alexa, ask Plex Music previous track.” |
+| Previous track | “Alexa, ask Plex Music to play the previous track.” |
 | Stop | “Alexa, ask Plex Music to stop.” |
 | Identify an Echo | “Alexa, ask Plex Music to identify this device.” |
 
