@@ -1,4 +1,4 @@
-# Plex Music v1.1.0-beta.1 — Stream Plex Music to Alexa Echo's 🎵
+# Plex Music v1.1.0 — Stream Plex Music to Alexa Echo's 🎵
 
 Plex Music is a free, self-hosted Home Assistant custom integration that plays music from your Plex libraries on Amazon Echo devices through your own Alexa **Custom** skill. It uses Home Assistant, Plex and the official Alexa skill interfaces; no AWS hosting, additional music server or unofficial Alexa API client is required.
 
@@ -66,16 +66,16 @@ Examples may vary depending on the Alexa interaction model. For native playback 
 
 Native Alexa controls such as **“Alexa, pause”**, **“Alexa, resume”**, **“Alexa, stop”**, **“Alexa, next track”** and **“Alexa, previous track”** were also tested with the archived stable implementation.
 
-## What's new in v1.1.0-beta.1 (development only)
+## What's new in v1.1.0
 
-This prerelease focuses on complete queues and reliable long listening sessions. Stable v1.0.0 on `main` remains unchanged.
+Version 1.1.0 improves complete queues and reliable long listening sessions.
 
 - **Complete artist and album playback:** All playable tracks returned by Plex are included instead of cutting a queue off at 100 tracks. Artist playback still follows Plex's own album and track order; release-date sorting is not changed. Voice discovery selections also no longer truncate long albums.
 - **Long-running queue renewal:** A valid, currently active queue is renewed for another four hours whenever Plex Music receives an authenticated Alexa playback or playback-control event from the matching Echo. Already-issued opaque track and artwork URLs continue to work while that queue is active, even if their original four-hour timestamp has elapsed.
 - **Inactivity protection remains:** If the queue sees no verified activity for four hours, it expires as before. Replacing a queue invalidates its old stream URLs. No Plex credentials are disclosed in public stream URLs.
 - **No Alexa JSON changes:** Existing voice commands, the Alexa Custom skill endpoint, MP3 direct play and Plex transcoding remain unchanged.
 
-**Suggested beta test:** Install `v1.1.0-beta.1`, restart Home Assistant, and ask “Alexa, ask Plex Music to play [artist]” with an artist who has more than 100 tracks. Check the Plex Music Search Result sensor for the full number of playable tracks, then verify an album boundary after track 100. For the expiry test, leave an artist queue playing longer than four hours, or pause/resume during the session, and verify that it continues beyond the original four-hour start time. The Alexa app / Alexa Media Player Idle limitation is not addressed by this release.
+**Playback notes:** Ask “Alexa, ask Plex Music to play [artist]” to queue all playable tracks from that artist in Plex's album order. Active listening sessions renew their queue lifetime on verified Alexa playback events. The Alexa app / Alexa Media Player Idle limitation is not addressed by this release.
 
 ## Playback and shuffle behaviour
 
