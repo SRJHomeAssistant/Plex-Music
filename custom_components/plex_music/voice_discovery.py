@@ -6,7 +6,7 @@ import time
 from plexapi.server import PlexServer
 
 from .const import CONF_MUSIC_LIBRARIES, CONF_PLEX_TOKEN, CONF_PLEX_URL
-from .playback import MAX_QUEUE, _comparable, _candidate_queries, _tracks
+from .playback import _comparable, _candidate_queries, _tracks
 from .voice_aliases import CONF_VOICE_ALIASES, resolve_voice_alias
 
 PAGE_SIZE = 5
@@ -84,7 +84,7 @@ def selected_tracks(data: dict, options: dict, choice: dict, shuffle: bool) -> l
         if parent is not None:
             item, kind = parent, "album"
     result = []
-    for track in _tracks(item, kind)[:MAX_QUEUE]:
+    for track in _tracks(item, kind):
         media = getattr(track, "media", [])
         parts = getattr(media[0], "parts", []) if media else []
         if not parts or not getattr(parts[0], "key", None):
