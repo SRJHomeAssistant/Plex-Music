@@ -23,6 +23,7 @@ class PlaybackStore:
 
     def __init__(self):
         self.items = {}
+        self.item_queues = {}  # Opaque URL token -> owning queue.
         self.queues = {}
         self.active = {}
 
@@ -35,8 +36,10 @@ class PlaybackStore:
             artwork_token = secrets.token_urlsafe(32) if track.get("thumb") else None
             expiry = time.monotonic() + TOKEN_LIFETIME
             self.items[audio_token] = (expiry, entry, track, "audio")
+            self.item_queues[audio_token] = queue_id
             if artwork_token:
                 self.items[artwork_token] = (expiry, entry, track, "artwork")
+                self.item_queues[artwork_token] = queue_id
             queue.append({
                 **track,
                 "_entry_id": entry.entry_id,
@@ -89,9 +92,29 @@ class PlaybackStore:
             return None
         return state
 
+    def touch(self, device_key: str, queue_id: str) -> bool:
+        """Renew an active queue after verified Alexa playback activity."""
+        state = self.active.get(device_key)
+        queued = self.queue(queue_id)
+        if not state or state["queue_id"] != queue_id or not queued or queued[1] != device_key:
+            return False
+        self.queues[queue_id] = (time.monotonic() + TOKEN_LIFETIME, device_key, queued[2])
+        return True
+
     def get(self, token: str):
         item = self.items.get(token)
-        if item is None or item[0] <= time.monotonic():
+        if item is None:
+            return None
+        queue_id = self.item_queues.get(token)
+        if queue_id:
+            queued = self.queue(queue_id)
+            # Issued URLs remain usable while the owning queue is active.
+            if queued is None or self.active.get(queued[1], {}).get("queue_id") != queue_id:
+                self.items.pop(token, None)
+                self.item_queues.pop(token, None)
+                return None
+            return item
+        if item[0] <= time.monotonic():
             self.items.pop(token, None)
             return None
         return item
