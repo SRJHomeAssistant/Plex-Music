@@ -128,6 +128,9 @@ class PlexMusicAlexaView(HomeAssistantView):
                         state["paused"] = event_type == "AudioPlayer.PlaybackStopped"
                         await persist_queue()
                     if index < len(tracks):
+                        # The Alexa request has been signature-verified and its
+                        # device/queue/token matched. Keep long sessions alive.
+                        self.store.touch(caller_key, queue_id)
                         if event_type == "AudioPlayer.PlaybackFailed":
                             failed = tracks[index]
                             _LOGGER.error(
@@ -209,6 +212,7 @@ class PlexMusicAlexaView(HomeAssistantView):
                 if not action or not state or caller_key not in registered:
                     return web.json_response({"version": "1.0", "response": {}})
                 queue_id = state["queue_id"]
+                self.store.touch(caller_key, queue_id)
                 tracks = self.store.queue(queue_id)[2]
                 if action == "pause":
                     state["paused"] = True
@@ -313,6 +317,7 @@ class PlexMusicAlexaView(HomeAssistantView):
                     if not state:
                         return web.json_response(speech("There is no Plex Music playback to control."))
                     queue_id = state["queue_id"]
+                    self.store.touch(caller_key, queue_id)
                     tracks = self.store.queue(queue_id)[2]
                     if action == "pause":
                         state["paused"] = True
