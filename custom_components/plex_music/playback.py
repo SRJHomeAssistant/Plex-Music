@@ -11,7 +11,6 @@ from plexapi.server import PlexServer
 from .const import CONF_MUSIC_LIBRARIES, CONF_PLEX_TOKEN, CONF_PLEX_URL
 from .voice_aliases import CONF_VOICE_ALIASES, resolve_voice_alias
 
-MAX_QUEUE = 100
 INDEX_TTL_SECONDS = 300
 _INDEX_LOCK = threading.RLock()
 _TRACK_INDEX = {}
@@ -141,13 +140,11 @@ def _tracks(item, kind: str) -> list:
     if kind == "track":
         return [item]
     if kind == "album":
-        return list(item.tracks())[:MAX_QUEUE]
+        return list(item.tracks())
     tracks = []
     for album in item.albums():
         tracks.extend(album.tracks())
-        if len(tracks) >= MAX_QUEUE:
-            break
-    return tracks[:MAX_QUEUE]
+    return tracks
 
 
 def resolve_music(data: dict, options: dict, spoken: str, preferred_kind: str | None = None,
@@ -210,7 +207,7 @@ def resolve_music(data: dict, options: dict, spoken: str, preferred_kind: str | 
                         "duration": int(getattr(track, "duration", 0) or 0),
                     })
                 if result:
-                    return (result[:MAX_QUEUE], kind) if return_kind else result[:MAX_QUEUE]
+                    return (result, kind) if return_kind else result
     # Only consider fuzzy results after every selected library has had an exact chance.
     # Refuse ambiguity: never silently pick between different matching titles.
     if "track" in kinds and fuzzy_candidates:
