@@ -1,4 +1,4 @@
-# Plex Music v1.1.0 — Stream Plex Music to Alexa Echo's 🎵
+# Plex Music v1.1.1 — Stream Plex Music to Alexa Echo's 🎵
 
 Plex Music is a free, self-hosted Home Assistant custom integration that plays music from your Plex libraries on Amazon Echo devices through your own Alexa **Custom** skill. It uses Home Assistant, Plex and the official Alexa skill interfaces; no AWS hosting, additional music server or unofficial Alexa API client is required.
 
@@ -61,12 +61,22 @@ Examples may vary depending on the Alexa interaction model. For native playback 
 | Next track | “Alexa, ask Plex Music to play the next track.” |
 | Skip a track | “Alexa, ask Plex Music to skip this song.” |
 | Previous track | “Alexa, ask Plex Music to play the previous track.” |
-| Stop | “Alexa, ask Plex Music to stop.” |
+| Stop | “Alexa, stop.” |
 | Identify an Echo | “Alexa, ask Plex Music to identify this device.” |
 
 Native Alexa controls such as **“Alexa, pause”**, **“Alexa, resume”**, **“Alexa, stop”**, **“Alexa, next track”** and **“Alexa, previous track”** were also tested with the archived stable implementation.
 
-## What's new in v1.1.0
+## What's new in v1.1.1
+
+- **Silent local stop:** Say “Alexa, stop” on the Echo playing Plex Music without a spoken confirmation.
+- **Silent remote stop:** Stop from another Echo without the unwanted “There is no Plex Music playback to control” response, when Alexa routes the stop to the playing device.
+- **Normal idle behaviour:** When no music is playing, Alexa retains its normal stop behaviour.
+- **Queue protection:** Stopped queues cannot enqueue another track through a late playback event.
+- **No Alexa skill JSON changes:** Existing installations do not need to rebuild the skill for this update.
+
+Local stop, remote stop and idle stop were verified on physical Echo devices during v1.1.1 beta testing.
+
+## Previous improvements in v1.1.0
 
 Version 1.1.0 improves complete queues and reliable long listening sessions.
 
@@ -83,7 +93,7 @@ Version 1.1.0 improves complete queues and reliable long listening sessions.
 
 The integration remembers up to 100 recently started distinct track IDs per installation in local SQLite. It prefers less recently played tracks when starting a shuffle, including across registered Echo devices. The archived notes describe this behaviour but note that the cross-device scenario was not exhaustively verified.
 
-**Multi-room playback:** Synchronised audio playback across an Echo speaker group is not supported. Playback commands affect the Echo that invoked the skill.
+**Multi-room playback:** Synchronised audio playback across an Echo speaker group is not supported. Playback queues are per Echo. Native stop can also stop playback on another Echo when Alexa routes the command there; this does not enable synchronised speaker-group playback.
 
 ## Playback status, artwork and controls
 
@@ -123,7 +133,7 @@ Plex Music also supports voice recognition overrides for artist, song or album n
 | [main](../../tree/main) | Stable public releases |
 | [development](../../tree/development) | Beta development and testing |
 
-The maintainer creates tags and GitHub releases manually. Stable release: **v1.0.0**. Use the [GitHub releases page](../../releases) to choose an available release, and enable Marketplace pre-releases when testing betas.
+The maintainer creates tags and GitHub releases manually. Current stable code version: **v1.1.1**. Use the [GitHub releases page](../../releases) to choose an available release, and enable Marketplace pre-releases when testing betas.
 
 - [Report a bug or request a feature](../../issues)
 - [Alexa interaction model](alexa/interaction_model_en_GB.json)
