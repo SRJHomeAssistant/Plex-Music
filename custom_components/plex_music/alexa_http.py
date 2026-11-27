@@ -173,7 +173,9 @@ class PlexMusicAlexaView(HomeAssistantView):
                                     record_played, self.hass.data[DOMAIN]["_playback_db_path"],
                                     entry.entry_id, played_key
                                 )
-                        if event_type == "AudioPlayer.PlaybackNearlyFinished" and index + 1 < len(tracks):
+                        if (event_type == "AudioPlayer.PlaybackNearlyFinished"
+                                and state and state["queue_id"] == queue_id
+                                and index + 1 < len(tracks)):
                             return web.json_response(play_response(queue_id, tracks, index + 1, "ENQUEUE"))
                         status = {
                             "AudioPlayer.PlaybackStarted": "Playing",
@@ -256,7 +258,7 @@ class PlexMusicAlexaView(HomeAssistantView):
                 if name in ("AMAZON.CancelIntent", "AMAZON.StopIntent") and caller_key:
                     if fresh(self._discovery.get((entry.entry_id, caller_key))):
                         self._discovery.pop((entry.entry_id, caller_key), None)
-                        return web.json_response(speech("Music search cancelled."))
+                        return web.json_response({"version": "1.0", "response": {"shouldEndSession": True}})
                 if name == "WhyDidntPlayIntent":
                     if not caller_key or caller_key not in registered:
                         return web.json_response(speech("Please identify this Echo in Plex Music first."))
@@ -298,6 +300,8 @@ class PlexMusicAlexaView(HomeAssistantView):
                 }
                 if name in actions:
                     if not caller_key or caller_key not in registered:
+                        if actions[name] == "stop" or name == "AMAZON.PauseIntent":
+                            return web.json_response({"version": "1.0", "response": {"shouldEndSession": True}})
                         return web.json_response(speech("Please identify this Echo in Plex Music first."))
                     if name in ("AMAZON.CancelIntent", "AMAZON.StopIntent"):
                         self._discovery.pop((entry.entry_id, caller_key), None)
@@ -315,6 +319,10 @@ class PlexMusicAlexaView(HomeAssistantView):
                         )
                         return web.json_response(stop_response())
                     if not state:
+                        # Alexa can route native stop as a pause to a recently used skill.
+                        # Never speak or alter another Echo\'s queue for an idle caller.
+                        if name == "AMAZON.PauseIntent":
+                            return web.json_response(stop_response())
                         return web.json_response(speech("There is no Plex Music playback to control."))
                     queue_id = state["queue_id"]
                     self.store.touch(caller_key, queue_id)
